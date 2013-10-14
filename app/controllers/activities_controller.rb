@@ -17,7 +17,8 @@ class ActivitiesController < ApplicationController
       flash[:notice] = "Activity has been created."
       redirect_to @activity
     else
-      # nothing
+      flash[:alert] = "Activity has not been created."
+      render "new"
     end
   end
 
