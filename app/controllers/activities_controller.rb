@@ -1,10 +1,11 @@
 class ActivitiesController < ApplicationController
+  before_action :set_activity, only: [:show, :edit, :update, :destroy]
+
   def index
     @activities = Activity.all
   end
 
   def show
-    @activity = Activity.find(params[:id])
   end
 
   def new
@@ -24,12 +25,9 @@ class ActivitiesController < ApplicationController
   end
 
   def edit
-    @activity = Activity.find(params[:id])
   end
 
   def update
-    @activity = Activity.find(params[:id])
-
     if @activity.update(activity_params)
       flash[:notice] = "Activity has been updated."
       redirect_to @activity
@@ -40,7 +38,6 @@ class ActivitiesController < ApplicationController
   end
 
   def destroy
-    @activity = Activity.find(params[:id])
     @activity.destroy
 
     flash[:notice] = "Activity has been deleted."
@@ -51,5 +48,12 @@ class ActivitiesController < ApplicationController
 
     def activity_params
       params.require(:activity).permit(:name, :description)
+    end
+
+    def set_activity
+      @activity = Activity.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+        flash[:alert] = "The activity you were looking for could not be found."
+        redirect_to activities_path
     end
 end
