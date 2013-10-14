@@ -1,3 +1,5 @@
 <%= title(@activity.name, "Activities") %>
 
 <h2><%= @activity.name %></h2>
+
+<%= link_to "Edit Activity", edit_activity_path(@activity) %>
