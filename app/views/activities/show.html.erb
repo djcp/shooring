@@ -11,3 +11,12 @@
           } %>
 
 <%= link_to "New Folder", new_activity_folder_path(@activity) %>
+
+<ul id='folders'>
+ <% @activity.folders.each do |folder| %>
+  <li>
+    #<%= folder.id %> -
+    <%= link_to folder.name, [@activity, folder] %>
+  </li>
+ <% end %>
+</ul>
