@@ -1,5 +1,8 @@
 Shooring::Application.routes.draw do
   root 'activities#index'
 
-  resources :activities
+  resources :activities do
+    resources :folders
+  end
+
 end

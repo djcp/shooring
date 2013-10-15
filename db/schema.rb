@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131014121642) do
+ActiveRecord::Schema.define(version: 20131015132414) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -19,5 +19,15 @@ ActiveRecord::Schema.define(version: 20131014121642) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "folders", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "activity_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "folders", ["activity_id"], name: "index_folders_on_activity_id"
 
 end
