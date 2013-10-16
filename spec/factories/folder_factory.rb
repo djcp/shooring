@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :folder do
     name "Example folder"
-    description "Example folder, nothing more"
+    description "A folder, nothing more"
   end
 end

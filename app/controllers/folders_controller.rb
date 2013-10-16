@@ -21,6 +21,19 @@ class FoldersController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @folder.update(folder_params)
+      flash[:notice] = "Folder has been updated."
+      redirect_to [@activity, @folder]
+    else
+      flash[:alert] = "Folder has not been updated."
+      render action: "edit"
+    end
+  end
+
   private
 
     def set_activity
