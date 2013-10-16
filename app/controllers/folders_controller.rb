@@ -34,6 +34,13 @@ class FoldersController < ApplicationController
     end
   end
 
+  def destroy
+    @folder.destroy
+    flash[:notice] = "Folder has been deleted."
+
+    redirect_to @activity
+  end
+
   private
 
     def set_activity
