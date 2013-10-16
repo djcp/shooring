@@ -3,7 +3,9 @@ require 'spec_helper'
 feature 'Viewing Folders' do
   before do
     student_project = FactoryGirl.create(:activity, name: "Student project")
-    FactoryGirl.create(:folder, activity: student_project, name:"Bash project", description:"Project for bob and Alice")
+    user = FactoryGirl.create(:user)
+    ticket = FactoryGirl.create(:folder, activity: student_project, name:"Bash project", description:"Project for bob and Alice")
+    ticket.update(user: user)
 
     meeting = FactoryGirl.create(:activity, name: "Meeting")
     FactoryGirl.create(:folder, activity: meeting, name:"Teachers Meeting", description:"Back to school teachers meeting")

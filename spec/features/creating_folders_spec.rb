@@ -2,9 +2,20 @@ require 'spec_helper'
 
 feature 'Creating Folders' do
   before do
-    FactoryGirl.create(:activity, name:"Bash Project")
+    activity = FactoryGirl.create(:activity)
+    user = FactoryGirl.create(:user)
+
     visit '/'
-    click_link "Bash Project"
+    click_link activity.name
+    click_link "New Folder"
+    message = "You need to sign in or sign up before continuing."
+    expect(page).to have_content(message)
+
+    fill_in "Name", with: user.name
+    fill_in "Password", with: user.password
+    click_button "Sign in"
+
+    click_link activity.name
     click_link "New Folder"
   end
 
@@ -14,6 +25,10 @@ feature 'Creating Folders' do
     click_button "Create Folder"
 
     expect(page).to have_content("Folder has been created.")
+
+    within "#folder #author" do
+      expect(page).to have_content("Created by sample@example.com")
+    end
   end
 
   scenario "Creating a folder without valid attributes fails" do

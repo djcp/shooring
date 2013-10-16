@@ -1,4 +1,5 @@
 class FoldersController < ApplicationController
+  before_action :require_signin!, except: [:show, :index]
   before_action :set_activity
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
 
@@ -12,6 +13,8 @@ class FoldersController < ApplicationController
 
   def create
     @folder = @activity.folders.build(folder_params)
+    @folder.user = current_user
+
     if @folder.save
       flash[:notice] = "Folder has been created."
       redirect_to [@activity, @folder]

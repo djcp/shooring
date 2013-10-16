@@ -2,9 +2,12 @@ require 'spec_helper'
 
 feature 'Deleting Folders' do
   let!(:activity) { FactoryGirl.create(:activity) }
-  let!(:folder) { FactoryGirl.create(:folder, activity: activity) }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:folder) { FactoryGirl.create(:folder, activity: activity, user: user) }
 
   before do
+    sign_in_as!(user)
+
     visit '/'
     click_link activity.name
     click_link folder.name

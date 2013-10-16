@@ -3,4 +3,5 @@ class Folder < ActiveRecord::Base
   validates :description, presence: true,
             length: { minimum: 10 }
   belongs_to :activity
+  belongs_to :user
 end
