@@ -2,6 +2,7 @@ require 'spec_helper'
 
 feature 'Editing Activities' do
   before do
+    sign_in_as!(FactoryGirl.create(:admin_user))
     FactoryGirl.create(:activity, name:'Student Project')
     visit '/'
     click_link 'Student Project'

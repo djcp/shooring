@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 feature 'Deleting activities' do
+  before do
+    sign_in_as!(FactoryGirl.create(:admin_user))
+  end
+
   scenario 'Deleting an activity' do
 
     FactoryGirl.create(:activity, name:'Student Project')
