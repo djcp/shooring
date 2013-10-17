@@ -4,6 +4,7 @@ feature 'Creating Folders' do
   before do
     activity = FactoryGirl.create(:activity)
     user = FactoryGirl.create(:user)
+    @email = user.email
 
     visit '/'
     click_link activity.name
@@ -27,7 +28,7 @@ feature 'Creating Folders' do
     expect(page).to have_content("Folder has been created.")
 
     within "#folder #author" do
-      expect(page).to have_content("Created by sample@example.com")
+      expect(page).to have_content("Created by #{@email}")
     end
   end
 
