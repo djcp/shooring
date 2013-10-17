@@ -1,9 +1,10 @@
 <h2>Activities</h2>
-
 <ul>
  <% @activities.each do |activity| %>
   <li><%= link_to activity.name, activity %></li>
  <% end %>
 </ul>
 
-<%= link_to 'New Activity', new_activity_path %>
+<% admin_only do %>
+ <%= link_to 'New Activity', new_activity_path %>
+<% end %>
