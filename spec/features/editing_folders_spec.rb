@@ -10,6 +10,7 @@ feature 'Editing Folders' do
   end
 
   before do
+    define_permission!(user, "view", activity)
     sign_in_as!(user)
     visit '/'
     click_link activity.name

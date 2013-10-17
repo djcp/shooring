@@ -1,5 +1,6 @@
 class ActivitiesController < ApplicationController
   before_action :authorize_admin!, except: [:index, :show]
+  before_action :require_signin!, only: [:show]
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -52,7 +53,11 @@ class ActivitiesController < ApplicationController
     end
 
     def set_activity
-      @activity = Activity.find(params[:id])
+     @activity = if current_user.admin?
+        Activity.find(params[:id])
+      else
+        Activity.viewable_by(current_user).find(params[:id])
+      end
     rescue ActiveRecord::RecordNotFound
         flash[:alert] = "The activity you were looking for could not be found."
         redirect_to activities_path

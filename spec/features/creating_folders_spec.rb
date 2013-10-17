@@ -4,20 +4,13 @@ feature 'Creating Folders' do
   before do
     activity = FactoryGirl.create(:activity)
     user = FactoryGirl.create(:user)
+    define_permission!(user, "view", activity)
     @email = user.email
+    sign_in_as!(user)
 
     visit '/'
     click_link activity.name
-    click_link "New Folder"
-    message = "You need to sign in or sign up before continuing."
-    expect(page).to have_content(message)
-
-    fill_in "Name", with: user.name
-    fill_in "Password", with: user.password
-    click_button "Sign in"
-
-    click_link activity.name
-    click_link "New Folder"
+    click_link 'New Folder'
   end
 
   scenario "Creating a folder" do

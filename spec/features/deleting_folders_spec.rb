@@ -6,6 +6,7 @@ feature 'Deleting Folders' do
   let!(:folder) { FactoryGirl.create(:folder, activity: activity, user: user) }
 
   before do
+    define_permission!(user, "view", activity)
     sign_in_as!(user)
 
     visit '/'
