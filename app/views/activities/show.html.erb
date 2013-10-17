@@ -2,7 +2,7 @@
 
 <h2><%= @activity.name %></h2>
 
-<% admin_only do %>
+<% admins_only do %>
  <%= link_to "Edit Activity", edit_activity_path(@activity) %>
  <%= link_to "Delete Activity", 
      activity_path(@activity),
