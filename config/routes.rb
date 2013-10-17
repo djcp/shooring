@@ -9,4 +9,7 @@ Shooring::Application.routes.draw do
     resources :folders
   end
 
+  namespace :admin do
+    resources :users
+  end
 end
