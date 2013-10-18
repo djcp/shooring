@@ -12,7 +12,9 @@
            } %>
 <% end %>
 
-<%= link_to "New Folder", new_activity_folder_path(@activity) %>
+<% authorized?(:"create folders", @activity) do %>
+  <%= link_to "New Folder", new_activity_folder_path(@activity) %>
+<% end %>
 
 <ul id='folders'>
  <% @activity.folders.each do |folder| %>

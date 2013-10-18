@@ -1,8 +1,12 @@
 <div id='folder'>
  <h2><%= @folder.name %></h2>
  <span id='author'>Created by <%= @folder.user.email %></span>
- <%= link_to "Edit Folder", [:edit, @activity, @folder] %>
- <%= link_to "Delete Folder", [@activity, @folder], method: :delete,
-     data: { confirm: "Are you sure you want to delete this folder?" } %>
+ <% authorized?(:"edit folders", @activity) do %>
+   <%= link_to "Edit Folder", [:edit, @activity, @folder] %>
+ <% end %>
+ <% authorized?(:"delete folders", @activity) do %>
+   <%= link_to "Delete Folder", [@activity, @folder], method: :delete,
+       data: { confirm: "Are you sure you want to delete this folder?" } %>
+ <% end %>
  <%= simple_format(@folder.description) %>
 </div>
