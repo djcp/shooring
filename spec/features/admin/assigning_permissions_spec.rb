@@ -23,4 +23,46 @@ feature "Assigning permissions" do
     expect(page).to have_content(activity.name)
   end
 
+  scenario "Creating folders for a activity" do
+    check_permission_box "view", activity
+    check_permission_box "create_folders", activity
+    click_button "Update"
+    click_link "Sign out"
+
+    sign_in_as!(user)
+    click_link activity.name
+    click_link "New Folder"
+    fill_in "Name", with: "Shiny!"
+    fill_in "Description", with: "Make it so!"
+    click_button "Create"
+
+    expect(page).to have_content("Folder has been created.")
+  end
+
+  scenario "Updating a folder for a activity" do
+    check_permission_box "view", activity
+    check_permission_box "edit_folders", activity
+    click_button "Update"
+    click_link "Sign out"
+    sign_in_as!(user)
+    click_link activity.name
+    click_link folder.name
+    click_link "Edit Folder"
+    fill_in "Name", with: "Really shiny!"
+    click_button "Update Folder"
+    expect(page).to have_content("Folder has been updated")
+  end
+
+  scenario "Deleting a folder for a activity" do
+    check_permission_box "view", activity
+    check_permission_box "delete_folders", activity
+    click_button "Update"
+    click_link "Sign out"
+    sign_in_as!(user)
+    click_link activity.name
+    click_link folder.name
+    click_link "Delete Folder"
+    expect(page).to have_content("Folder has been deleted.")
+  end
+
 end
