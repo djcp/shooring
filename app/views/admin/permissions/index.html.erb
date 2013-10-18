@@ -1,0 +1,24 @@
+<h2>Permissions for <%= @user.email %></h2>
+<%= form_tag admin_user_set_permissions_path, :method => :put do %>
+  <table id='permissions' cellspacing='0'>
+   <thead>
+    <th>Activity</th>
+    <% permissions.each do |name, text| %>
+      <th><%= text %></th>
+    <% end %>
+   </thead>
+   <tbody>
+    <% @activitys.each do |activity| %>
+      <tr class='<%= cycle("odd", "even") %>' id='activity_<%= activity.id %>'>
+       <td><%= activity.name %></td>
+       <% permissions.each do |name, text| %>
+         <td>
+          <%= check_box_tag "permissions[#{activity.id}][#{name}]", @ability.can?(name.to_sym, activity) %>
+         </td>
+       <% end %>
+      </tr>
+    <% end %>
+   </tbody>
+  </table>
+  <%= submit_tag "Update" %>
+<% end %>
