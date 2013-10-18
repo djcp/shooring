@@ -10,7 +10,11 @@ feature "Viewing activities" do
   end
 
   scenario "Listing all activities" do
+    FactoryGirl.create(:activity, name: "Hidden")
     visit '/'
+
+    expect(page).to_not have_content("Hidden")
+
     click_link activity.name
     expect(page.current_url).to eql(activity_url(activity))
   end

@@ -9,4 +9,7 @@ class Activity < ActiveRecord::Base
                                              user_id: user.id })
   end
 
+  scope :for, ->(user) do
+    user.admin? ? Activity.all : Activity.viewable_by(user)
+  end
 end
