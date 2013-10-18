@@ -55,6 +55,14 @@ describe FoldersController do
                      }
         cannot_update_folders!
       end
+
+      it "cannot delete a folder without permission" do
+        delete :destroy, { activity_id: activity.id, id: folder.id }
+        expect(response).to redirect_to(activity)
+        message = "You cannot delete folders from this activity."
+        expect(flash[:alert]).to eql(message)
+      end
+
     end
   end
 end

@@ -7,6 +7,7 @@ feature 'Deleting Folders' do
 
   before do
     define_permission!(user, "view", activity)
+    define_permission!(user, "delete folders", activity)
     sign_in_as!(user)
 
     visit '/'
