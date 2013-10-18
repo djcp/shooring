@@ -1,5 +1,5 @@
 class FoldersController < ApplicationController
-  before_action :require_signin!, except: [:show, :index]
+  before_action :require_signin!
   before_action :set_activity
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
 
@@ -47,7 +47,11 @@ class FoldersController < ApplicationController
   private
 
     def set_activity
-      @activity = Activity.find(params[:activity_id])
+     @activity = Activity.for(current_user).find(params[:activity_id])
+   rescue ActiveRecord::RecordNotFound
+     flash[:alert] = "The activity you were looking " +
+                     "for could not be found."
+     redirect_to root_path
     end
 
     def set_folder
