@@ -11,6 +11,7 @@ feature 'Editing Folders' do
 
   before do
     define_permission!(user, "view", activity)
+    define_permission!(user, "edit folders", activity)
     sign_in_as!(user)
     visit '/'
     click_link activity.name

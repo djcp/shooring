@@ -3,6 +3,7 @@ class FoldersController < ApplicationController
   before_action :set_activity
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
   before_action :authorize_create!, only: [:new, :create]
+  before_action :authorize_update!, only: [:edit, :update]
 
   def show
   end
@@ -66,6 +67,13 @@ class FoldersController < ApplicationController
     def authorize_create!
      if !current_user.admin? && cannot?("create folders".to_sym, @activity)
        flash[:alert] = "You cannot create folders on this activity."
+       redirect_to @activity
+     end
+   end
+
+   def authorize_update!
+     if !current_user.admin? && cannot?("edit folders".to_sym, @activity)
+       flash[:alert] = "You cannot edit folders on this activity."
        redirect_to @activity
      end
    end

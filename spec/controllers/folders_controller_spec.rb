@@ -28,6 +28,11 @@ describe FoldersController do
         flash[:alert].should eql(message)
       end
 
+      def cannot_update_folders!
+        expect(response).to redirect_to(activity)
+        expect(flash[:alert]).to eql("You cannot edit folders on this activity.")
+      end
+
       it "cannot begin to create a folder" do
        get :new, :activity_id => activity.id
        cannot_create_folders!
@@ -36,6 +41,19 @@ describe FoldersController do
       it "cannot create a activity without permission" do
         post :create, :activity_id => activity.id
         cannot_create_folders!
+      end
+
+      it "cannot edit a folder without permission" do
+       get :edit, { activity_id: activity.id, id: folder.id }
+       cannot_update_folders!
+      end
+
+      it "cannot update a folder without permission" do
+        put :update, { activity_id: activity.id,
+                       id: folder.id,
+                       folder: {}
+                     }
+        cannot_update_folders!
       end
     end
   end
