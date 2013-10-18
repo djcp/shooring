@@ -5,6 +5,7 @@ feature 'Creating Folders' do
     activity = FactoryGirl.create(:activity)
     user = FactoryGirl.create(:user)
     define_permission!(user, "view", activity)
+    define_permission!(user, "create folders", activity)
     @email = user.email
     sign_in_as!(user)
 

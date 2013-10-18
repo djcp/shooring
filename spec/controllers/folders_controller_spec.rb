@@ -15,6 +15,28 @@ describe FoldersController do
       expect(flash[:alert]).to eql("The activity you were looking " +
                                    "for could not be found.")
     end
-  end
 
+    context "with permission to view the activity" do
+      before do
+        sign_in(user)
+        define_permission!(user, "view", activity)
+      end
+
+      def cannot_create_folders!
+        response.should redirect_to(activity)
+        message = "You cannot create folders on this activity."
+        flash[:alert].should eql(message)
+      end
+
+      it "cannot begin to create a folder" do
+       get :new, :activity_id => activity.id
+       cannot_create_folders!
+      end
+
+      it "cannot create a activity without permission" do
+        post :create, :activity_id => activity.id
+        cannot_create_folders!
+      end
+    end
+  end
 end

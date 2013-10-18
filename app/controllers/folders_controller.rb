@@ -2,6 +2,7 @@ class FoldersController < ApplicationController
   before_action :require_signin!
   before_action :set_activity
   before_action :set_folder, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_create!, only: [:new, :create]
 
   def show
   end
@@ -61,4 +62,12 @@ class FoldersController < ApplicationController
     def folder_params
       params.require(:folder).permit(:name, :description)
     end
+
+    def authorize_create!
+     if !current_user.admin? && cannot?("create folders".to_sym, @activity)
+       flash[:alert] = "You cannot create folders on this activity."
+       redirect_to @activity
+     end
+   end
+
 end
