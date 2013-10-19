@@ -10,6 +10,8 @@ Shooring::Application.routes.draw do
     resources :folders
   end
 
+  resources :files
+
   namespace :admin do
     root :to => "base#index"
     resources :users do
