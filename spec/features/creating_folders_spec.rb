@@ -36,10 +36,23 @@ feature 'Creating Folders' do
 
   scenario "Description must be longer than 10 characters" do
     fill_in "Name", with:"Groupe 1"
-    fill_in "Name", with:"Toto"
+    fill_in "Description", with:"Toto"
     click_button "Create Folder"
 
     expect(page).to have_content("Folder has not been created.")
     expect(page).to have_content("Description is too short")
+  end
+
+  scenario "Creating a folder with an attachment" do
+    fill_in "Name", with: "Project for Alice"
+    fill_in "Description", with: "Project Readme file attached"
+    attach_file "File", "spec/fixtures/Readme.md"
+    click_button "Create Folder"
+
+    expect(page).to have_content("Folder has been created.")
+
+    within("#folder .asset") do
+      expect(page).to have_content("Readme.md")
+    end
   end
 end

@@ -1,6 +1,6 @@
 <div id='folder'>
  <h2><%= @folder.name %></h2>
- <span id='author'>Created by <%= @folder.user.email %></span>
+ <small id='author'>Created by <%= @folder.user.email %></smalln>
  <% authorized?(:"edit folders", @activity) do %>
    <%= link_to "Edit Folder", [:edit, @activity, @folder] %>
  <% end %>
@@ -9,4 +9,11 @@
        data: { confirm: "Are you sure you want to delete this folder?" } %>
  <% end %>
  <%= simple_format(@folder.description) %>
+ <% if @folder.asset.present? %>
+   <h3>Attached File</h3>
+   <div class="asset">
+     <p><%= link_to File.basename(@folder.asset.path), @folder.asset.url %></p>
+     <p><small><%= number_to_human_size(@folder.asset.size) %></small></p>
+   </div>
+ <% end %>
 </div>

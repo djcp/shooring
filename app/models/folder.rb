@@ -4,4 +4,6 @@ class Folder < ActiveRecord::Base
             length: { minimum: 10 }
   belongs_to :activity
   belongs_to :user
+
+  mount_uploader :asset, AssetUploader
 end

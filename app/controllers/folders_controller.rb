@@ -58,7 +58,7 @@ class FoldersController < ApplicationController
     end
 
     def folder_params
-      params.require(:folder).permit(:name, :description)
+      params.require(:folder).permit(:name, :description, :asset)
     end
 
     def authorize_create!
