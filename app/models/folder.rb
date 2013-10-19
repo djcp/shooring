@@ -5,5 +5,6 @@ class Folder < ActiveRecord::Base
   belongs_to :activity
   belongs_to :user
 
-  mount_uploader :asset, AssetUploader
+  has_many :assets
+  accepts_nested_attributes_for :assets
 end

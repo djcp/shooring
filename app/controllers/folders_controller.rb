@@ -11,6 +11,7 @@ class FoldersController < ApplicationController
 
   def new
     @folder = @activity.folders.build
+    3.times { @folder.assets.build }
   end
 
   def create
@@ -58,7 +59,7 @@ class FoldersController < ApplicationController
     end
 
     def folder_params
-      params.require(:folder).permit(:name, :description, :asset)
+      params.require(:folder).permit(:name, :description, assets_attributes: [:asset])
     end
 
     def authorize_create!
