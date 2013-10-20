@@ -1,6 +1,17 @@
 class FilesController < ApplicationController
   before_filter :require_signin!
 
+  def new
+    @folder = Folder.new
+    asset = @folder.assets.build
+
+    render partial: "files/form",
+      locals: {
+        number: params[:number].to_i,
+        asset: asset
+      }
+  end
+
   def show
     asset = Asset.find(params[:id])
     if can?(:view, asset.folder.activity) || current_user.try(:admin?)

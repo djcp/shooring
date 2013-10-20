@@ -11,7 +11,7 @@ class FoldersController < ApplicationController
 
   def new
     @folder = @activity.folders.build
-    3.times { @folder.assets.build }
+    @folder.assets.build
   end
 
   def create
