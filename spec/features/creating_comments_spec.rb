@@ -43,6 +43,11 @@ feature "Creating comments" do
     within("#folder .state") do
       page.should have_content("Closed")
     end
+
+    within("#comments") do
+      page.should have_content("State: Closed")
+    end
+
   end
 
 end

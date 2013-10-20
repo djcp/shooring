@@ -1,4 +1,5 @@
 class Comment < ActiveRecord::Base
+  before_create :set_previous_state
   after_create :set_folder_state
 
   validates :text, presence: true
@@ -6,7 +7,9 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :state
 
-  delegate :activity, :to => :ticket
+  belongs_to :previous_state, :class_name => "State"
+
+  delegate :activity, :to => :folder
 
    private
 
@@ -14,4 +17,9 @@ class Comment < ActiveRecord::Base
       self.folder.state = self.state
       self.folder.save!
     end
+
+    def set_previous_state
+      self.previous_state = folder.state
+    end
+
 end

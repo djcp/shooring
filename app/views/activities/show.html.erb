@@ -4,12 +4,9 @@
 
 <% admins_only do %>
  <%= link_to "Edit Activity", edit_activity_path(@activity) %>
- <%= link_to "Delete Activity", 
-     activity_path(@activity),
-     method: :delete,
-     data: {confirm: 
-              "Are you sure you want to delete this activity?"
-           } %>
+ <%= link_to "Delete Activity", activity_path(@activity),
+                                method: :delete,
+                                data: {confirm: "Are you sure you want to delete this activity?" } %>
 <% end %>
 
 <% authorized?(:"create folders", @activity) do %>
@@ -19,8 +16,8 @@
 <ul id='folders'>
  <% @activity.folders.each do |folder| %>
   <li>
-    #<%= folder.id %> -
-    <%= link_to folder.name, [@activity, folder] %>
+   <%= render folder.state if folder.state %>
+   #<%= folder.id %> - <%= link_to folder.name, [@activity, folder] %>
   </li>
  <% end %>
 </ul>
