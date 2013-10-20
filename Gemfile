@@ -10,7 +10,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'cancan', '1.6.9'
-gem 'rb-readline'
+gem 'rb-readline', '~>0.4.2'
 
 gem 'carrierwave', '0.8.0'
 

@@ -7,6 +7,7 @@ class FoldersController < ApplicationController
   before_action :authorize_delete!, only: :destroy
 
   def show
+    @comment = @folder.comments.build
   end
 
   def new
