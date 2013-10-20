@@ -1,21 +1,26 @@
 <strong>New comment</strong>
-<% if @comment.errors.any? %>
- <div id="error_explanation">
-  <h2><%= pluralize(@comment.errors.count, "error") %>
-       prohibited this comment from being saved:</h2>
-
-  <ul>
-  <% @comment.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
-  <% end %>
-  </ul>
- </div>
-<% end %>
-
 <%= form_for [@folder, @comment] do |f| %>
+  <% if @comment.errors.any? %>
+   <div id="error_explanation">
+    <h2><%= pluralize(@comment.errors.count, "error") %>
+         prohibited this comment from being saved:</h2>
+
+    <ul>
+    <% @comment.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+   </div>
+  <% end %>
+
   <p>
    <%= f.label :text %><br>
    <%= f.text_area :text %>
+  </p>
+  <p>
+   <%= f.label :state_id %>
+   <%= f.select :state_id , @states.map { |s| [s.name, s.id] } ,
+                :selected => @folder.state_id %>
   </p>
   <%= f.submit %>
 <% end %>

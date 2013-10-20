@@ -8,6 +8,7 @@ class FoldersController < ApplicationController
 
   def show
     @comment = @folder.comments.build
+    @states = State.all
   end
 
   def new

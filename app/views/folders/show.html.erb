@@ -1,6 +1,7 @@
 <div id='folder'>
  <h2><%= @folder.name %></h2>
  <small id='author'>Created by <%= @folder.user.email %></smalln>
+ <%= render @folder.state if @folder.state %>
  <% authorized?(:"edit folders", @activity) do %>
    <%= link_to "Edit Folder", [:edit, @activity, @folder] %>
  <% end %>

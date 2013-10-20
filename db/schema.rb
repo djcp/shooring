@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131020151613) do
+ActiveRecord::Schema.define(version: 20131020173857) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20131020151613) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "state_id"
   end
 
   create_table "folders", force: true do |t|
@@ -43,9 +44,11 @@ ActiveRecord::Schema.define(version: 20131020151613) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "state_id"
   end
 
   add_index "folders", ["activity_id"], name: "index_folders_on_activity_id"
+  add_index "folders", ["state_id"], name: "index_folders_on_state_id"
   add_index "folders", ["user_id"], name: "index_folders_on_user_id"
 
   create_table "permissions", force: true do |t|
@@ -58,6 +61,14 @@ ActiveRecord::Schema.define(version: 20131020151613) do
   end
 
   add_index "permissions", ["user_id"], name: "index_permissions_on_user_id"
+
+  create_table "states", force: true do |t|
+    t.string   "name"
+    t.string   "color"
+    t.string   "background"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"
