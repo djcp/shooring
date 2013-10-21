@@ -2,6 +2,15 @@
 
 <h2><%= @activity.name %></h2>
 
+<ul id='folders'>
+ <% @activity.folders.each do |folder| %>
+  <li>
+   <%= render folder.state if folder.state %>
+   #<%= folder.id %> - <%= link_to folder.name, [@activity, folder] %>
+  </li>
+ <% end %>
+</ul>
+
 <% admins_only do %>
  <%= link_to "Edit Activity", edit_activity_path(@activity) %>
  <%= link_to "Delete Activity", activity_path(@activity),
@@ -12,12 +21,3 @@
 <% authorized?(:"create folders", @activity) do %>
   <%= link_to "New Folder", new_activity_folder_path(@activity) %>
 <% end %>
-
-<ul id='folders'>
- <% @activity.folders.each do |folder| %>
-  <li>
-   <%= render folder.state if folder.state %>
-   #<%= folder.id %> - <%= link_to folder.name, [@activity, folder] %>
-  </li>
- <% end %>
-</ul>
