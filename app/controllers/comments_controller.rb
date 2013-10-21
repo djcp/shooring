@@ -3,6 +3,8 @@ class CommentsController < ApplicationController
   before_filter :set_folder
 
   def create
+    sanitize_parameters!
+
     @comment = @folder.comments.build(comment_params)
     @comment.user = current_user
     if @comment.save
@@ -16,6 +18,12 @@ class CommentsController < ApplicationController
   end
 
   private
+    def sanitize_parameters!
+      if cannot?("change states", @folder.activity)
+        params[:comment].delete(:state_id)
+      end
+    end
+
     def set_folder
       @folder = Folder.find(params[:folder_id])
     end
