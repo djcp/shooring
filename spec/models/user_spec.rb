@@ -52,7 +52,7 @@ describe User do
       expect(user.authenticate("hunter2")).to be
     end
 
-    it "i does not authenticate with an incorrect password" do
+    it "does not authenticate with an incorrect password" do
       expect(user.authenticate("hunte12")).to_not be
     end
   end

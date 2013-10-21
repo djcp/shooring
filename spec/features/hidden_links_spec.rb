@@ -87,7 +87,6 @@ feature "hidden links" do
       click_link folder.name
       assert_no_link_for "Delete Folder"
     end
-
   end
 
   context "admin users" do
@@ -110,6 +109,13 @@ feature "hidden links" do
     scenario "New folder link is shown to admins" do
       visit activity_path(activity)
       assert_link_for "New Folder"
+    end
+
+    scenario "Edit folder link is shown to admins" do
+      folder
+      visit activity_path(activity)                                                                                                                                                
+      click_link folder.name
+      assert_link_for "Edit Folder"                                                                                                                                              
     end
 
     scenario "Delete folder link is shown to admins" do

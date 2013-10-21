@@ -17,7 +17,7 @@ feature "Creating comments" do
 
   scenario "Creating a comment" do
     click_link folder.name
-    fill_in "Text", :with => "Added a comment!"
+    fill_in "Text", with: "Added a comment!"
     click_button "Create Comment"
 
     page.should have_content("Comment has been created.")
