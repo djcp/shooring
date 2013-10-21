@@ -17,12 +17,19 @@ Shooring::Application.routes.draw do
   resources :files
 
   namespace :admin do
-    root :to => "base#index"
+    root "base#index"
     resources :states
     resources :users do
       resources :permissions
 
       put "permissions", to: "permissions#set", as: "set_permissions"
     end
+
+    resources :states do
+      member do
+        get :make_default
+      end
+    end
   end
+
 end
