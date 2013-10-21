@@ -4,10 +4,12 @@ feature "Creating comments" do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:activity) { FactoryGirl.create(:activity) }
   let!(:folder) { FactoryGirl.create(:folder, :activity => activity, :user => user) }
-  let!(:state) { FactoryGirl.create(:state, :name => "Closed") }
 
   before do
     define_permission!(user, "view", activity)
+
+    FactoryGirl.create(:state, name: "Closed")
+
     sign_in_as!(user)
     visit '/'
     click_link activity.name
@@ -33,10 +35,11 @@ feature "Creating comments" do
     page.should have_content("Text can't be blank")
   end
 
-  scenario "Changing a folder's state" do
+  scenario "Changing a folder's state", js: true do
+    define_permission!(user, "change states", activity)
     click_link folder.name
-    fill_in "Text", :with => "Deadline ended"
-    select "Closed", :from => "State"
+    fill_in "Text", with: "Deadline ended"
+    select "Closed", from: "State"
     click_button "Create Comment"
     page.should have_content("Comment has been created.")
 
@@ -47,7 +50,14 @@ feature "Creating comments" do
     within("#comments") do
       page.should have_content("State: Closed")
     end
+  end
 
+  scenario "A user without permission cannot change the state" do
+    click_link folder.name
+    message = 'Unable to find css "#comment_state_id"'
+    expect {
+      find("#comment_state_id")
+    }.to raise_error(Capybara::ElementNotFound, message)
   end
 
 end

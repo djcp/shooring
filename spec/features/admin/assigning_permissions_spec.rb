@@ -9,10 +9,13 @@ feature "Assigning permissions" do
 
   before do
     sign_in_as!(admin)
+
     click_link "Admin"
     click_link "Users"
     click_link user.email
     click_link "Permissions"
+
+    State.create!(:name => "Open")
   end
 
   scenario "Viewing a activity" do
@@ -63,6 +66,26 @@ feature "Assigning permissions" do
     click_link folder.name
     click_link "Delete Folder"
     expect(page).to have_content("Folder has been deleted.")
+  end
+
+  scenario "Changing states for a folder", js: true do
+    check_permission_box "view", activity
+    check_permission_box "change_states", activity
+    click_button "Update"
+    click_link "Sign out"
+
+    sign_in_as!(user)
+    click_link activity.name
+    click_link folder.name
+    fill_in "Text", with: "Opening this folder."
+    select "Open", from: "State"
+    click_button "Create Comment"
+
+    expect(page).to have_content("Comment has been created.")
+
+    within("#folder .state") do
+      expect(page).to have_content("Open")
+    end
   end
 
 end
