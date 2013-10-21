@@ -1,4 +1,4 @@
-class Admin::StatesController < ApplicationController
+class Admin::StatesController < Admin::BaseController
 
   def index
     @states = State.all
@@ -16,7 +16,7 @@ class Admin::StatesController < ApplicationController
       redirect_to admin_states_path
     else
       flash[:alert] = "State has not been created."
-      render :action => "new"
+      render "new"
     end
   end
 
@@ -30,7 +30,6 @@ class Admin::StatesController < ApplicationController
 
   private
     def state_params
-      params.require(:state).permit(:name)
+      params.require(:state).permit(:name, :background, :color)
     end
-
 end

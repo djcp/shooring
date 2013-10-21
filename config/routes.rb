@@ -18,7 +18,7 @@ Shooring::Application.routes.draw do
 
   namespace :admin do
     root "base#index"
-    resources :states
+
     resources :users do
       resources :permissions
 
@@ -31,5 +31,4 @@ Shooring::Application.routes.draw do
       end
     end
   end
-
 end

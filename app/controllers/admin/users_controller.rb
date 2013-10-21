@@ -22,7 +22,7 @@ class Admin::UsersController < Admin::BaseController
       redirect_to admin_users_path
     else
       flash.now[:alert] = "User has not been created."
-      render action: "new"
+      render "new"
     end
   end
 
@@ -30,18 +30,18 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def update
-    #params = user_params.dup
+    ##params = user_params.dup
     #if params[:password].blank?
     #  params.delete(:password)
     #  params.delete(:password_confirmation)
     #end
 
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       flash[:notice] = "User has been updated."
       redirect_to admin_users_path
     else
       flash[:alert] = "User has not been updated."
-      render :action => "edit"
+      render "edit"
     end
   end
 
