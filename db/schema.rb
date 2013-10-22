@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131021090255) do
+ActiveRecord::Schema.define(version: 20131022065624) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -52,6 +52,11 @@ ActiveRecord::Schema.define(version: 20131021090255) do
   add_index "folders", ["state_id"], name: "index_folders_on_state_id"
   add_index "folders", ["user_id"], name: "index_folders_on_user_id"
 
+  create_table "folders_tags", id: false, force: true do |t|
+    t.integer "tag_id"
+    t.integer "folder_id"
+  end
+
   create_table "permissions", force: true do |t|
     t.integer  "user_id"
     t.integer  "thing_id"
@@ -70,6 +75,10 @@ ActiveRecord::Schema.define(version: 20131021090255) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "default",    default: false
+  end
+
+  create_table "tags", force: true do |t|
+    t.string "name"
   end
 
   create_table "users", force: true do |t|

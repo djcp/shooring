@@ -44,8 +44,8 @@ feature 'Creating Folders' do
   end
 
   scenario "Creating a folder with an attachment", js:true do
-    fill_in "Name", with: "Project for Alice"
-    fill_in "Description", with: "Project Readme file attached"
+    fill_in "Name", with: "Activity for Alice"
+    fill_in "Description", with: "Activity Readme file attached"
 
     attach_file "File #1", "spec/fixtures/Readme.md"
 
@@ -61,4 +61,19 @@ feature 'Creating Folders' do
     #  expect(page).to have_content("TODO.md")
     #end
   end
+
+  scenario "Creating a folder with tags" do
+    fill_in "Name", with: "Project"
+    fill_in "Description", with: "Bob and Alice"
+    fill_in "Tags", with: "undone beta"
+    click_button "Create Folder"
+
+    page.should have_content("Folder has been created.")
+
+    within("#folder #tags") do
+      page.should have_content("undone")
+      page.should have_content("beta")
+    end
+  end
+
 end

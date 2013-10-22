@@ -5,6 +5,8 @@
  <small id='author'>Created by <%= @folder.user.email %></smalln>
  <%= render @folder.state if @folder.state %>
 
+  <div id='tags'><%= render @folder.tags %></div>
+
  <% if @folder.assets.exists? %>
    <h3>Attached Files</h3>
    <div class="asset">
