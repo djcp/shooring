@@ -17,25 +17,24 @@ class Folder < ActiveRecord::Base
   before_create :associate_tags
 
   def self.search(query)
-    query
-      .split(" ")
-      .collect do |query|
-        query.split(":")
-      end.inject(self) do |klass, (name, q)|
-        association = klass.reflect_on_association(name.to_sym)
-        unless association
-          name = name.pluralize
-          association = klass.reflect_on_association(name.to_sym)
-        end
-
-        association_table = association.klass.arel_table
-
-        if [:has_and_belongs_to_many, :belongs_to].include?(association.macro)
-          joins(name.to_sym).where(association_table["name"].eq(q))
-        else
-          all
-        end
+    terms = {}
+    query.split(" ")
+      .map do |query|
+        k, v = query.split(":")
+        terms[k] = v
       end
+
+    relation = all
+
+    if terms.has_key?("tag")
+      relation = joins(:tags).where("tags.name = ?", terms['tag']) 
+    end
+
+    if terms.has_key?("state")
+      relation = joins(:state).where("states.name = ?", terms['state']) 
+    end
+
+    relation
   end
 
   private
