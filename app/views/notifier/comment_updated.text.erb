@@ -1,1 +1,10 @@
-<%= activity_folder_url(@folder.activity, @folder) %>
+Hello!
+
+<%= @folder.name %> for <%= @activity.name %> has been updated.
+
+<%= @comment.user.email %> wrote:
+
+<%= @comment.text %>
+
+You can view this folder online by going to:
+<%= activity_folder_url(@activity, @folder) %>
