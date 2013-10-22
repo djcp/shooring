@@ -60,4 +60,21 @@ feature "Creating comments" do
     }.to raise_error(Capybara::ElementNotFound, message)
   end
 
+
+  scenario "Adding a tag to a folder" do
+    click_link folder.name
+    within("#folder #tags") do
+      page.should_not have_content("incomplete")
+    end
+
+    fill_in "Text", with: "Adding Incomplete"
+    fill_in "Tags", with: "incomplete"
+    click_button "Create Comment"
+
+    page.should have_content("Comment has been created.")
+    within("#folder #tags") do
+      page.should have_content("incomplete")
+    end
+  end
+
 end

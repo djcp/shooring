@@ -24,5 +24,8 @@
                   :selected => @folder.state_id %>
     </p>
   <% end %>
+
+   <%= render "tags/form", f: f %>
+
   <%= f.submit %>
 <% end %>
