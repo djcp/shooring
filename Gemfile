@@ -14,6 +14,8 @@ gem 'rb-readline', '~>0.4.2'
 
 gem 'carrierwave', '0.8.0'
 
+gem 'email_spec', '~> 1.5.0'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

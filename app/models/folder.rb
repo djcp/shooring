@@ -5,6 +5,8 @@ class Folder < ActiveRecord::Base
   has_many :assets
   has_many :comments
   has_and_belongs_to_many :tags
+  has_and_belongs_to_many :watchers, join_table: "folder_watchers",
+                                     class_name: "User"
 
   attr_accessor :tag_names
 
@@ -15,6 +17,7 @@ class Folder < ActiveRecord::Base
                           length: {minimum: 10 }
 
   before_create :associate_tags
+  after_create :creator_watches_me
 
   def self.search(query)
     terms = {}
@@ -46,4 +49,11 @@ class Folder < ActiveRecord::Base
         end
       end
     end
+
+    def creator_watches_me
+       if user
+         self.watchers << user unless self.watchers.include?(user)
+       end
+    end
+
 end

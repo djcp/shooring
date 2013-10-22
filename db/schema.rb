@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131022065624) do
+ActiveRecord::Schema.define(version: 20131022194619) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -36,6 +36,11 @@ ActiveRecord::Schema.define(version: 20131022065624) do
     t.datetime "updated_at"
     t.integer  "state_id"
     t.integer  "previous_state_id"
+  end
+
+  create_table "folder_watchers", id: false, force: true do |t|
+    t.integer "user_id"
+    t.integer "folder_id"
   end
 
   create_table "folders", force: true do |t|
