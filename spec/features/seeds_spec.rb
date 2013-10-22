@@ -10,8 +10,8 @@ feature "Seed Data" do
     sign_in_as!(user)
     click_link "Sample Project"
     click_link "New Folder"
-    fill_in "Name", :with => "Comments with state"
-    fill_in "Description", :with => "Comments always have a state."
+    fill_in "Name", with: "Comments with state"
+    fill_in "Description", with: "Comments always have a state."
     click_button "Create Folder"
 
     within("#comment_state_id") do

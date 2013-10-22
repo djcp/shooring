@@ -3,7 +3,7 @@ class Admin::PermissionsController < Admin::BaseController
 
   def index
     @ability = Ability.new(@user)
-    @activitys = Activity.all
+    @activities = Activity.all
   end
 
   def set

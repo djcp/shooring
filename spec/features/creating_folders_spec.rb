@@ -46,9 +46,12 @@ feature 'Creating Folders' do
   scenario "Creating a folder with an attachment", js:true do
     fill_in "Name", with: "Project for Alice"
     fill_in "Description", with: "Project Readme file attached"
+
     attach_file "File #1", "spec/fixtures/Readme.md"
+
     click_link "Add another file"
     attach_file "File #2", "spec/fixtures/TODO.md"
+
     click_button "Create Folder"
 
     expect(page).to have_content("Folder has been created.")

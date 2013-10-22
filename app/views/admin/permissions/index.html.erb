@@ -8,7 +8,7 @@
     <% end %>
    </thead>
    <tbody>
-    <% @activitys.each do |activity| %>
+    <% @activities.each do |activity| %>
       <tr class='<%= cycle("odd", "even") %>' id='activity_<%= activity.id %>'>
        <td><%= activity.name %></td>
        <% permissions.each do |name, text| %>
