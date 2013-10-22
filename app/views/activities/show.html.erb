@@ -2,8 +2,15 @@
 
 <h2><%= @activity.name %></h2>
 
+<%= form_tag search_activity_folders_path(@activity),
+             method: :get do %>
+  <%= label_tag "search" %>
+  <%= text_field_tag "search", params[:search] %>
+  <%= submit_tag "Search" %>
+<% end %>
+
 <ul id='folders'>
- <% @activity.folders.each do |folder| %>
+ <% @folders.each do |folder| %>
   <li>
    <%= render folder.state if folder.state %>
    #<%= folder.id %> - <%= link_to folder.name, [@activity, folder] %>

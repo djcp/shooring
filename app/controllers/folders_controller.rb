@@ -52,6 +52,11 @@ class FoldersController < ApplicationController
     redirect_to @activity
   end
 
+  def search
+    @folders = @activity.folders.search(params[:search])
+    render "activities/show"
+  end
+
   private
     def set_activity
       @activity = Activity.for(current_user).find(params[:activity_id])

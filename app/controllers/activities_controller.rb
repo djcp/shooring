@@ -8,7 +8,7 @@ class ActivitiesController < ApplicationController
   end
 
   def show
-    #@folders = @activity.folders
+    @folders = @activity.folders
   end
 
   def new

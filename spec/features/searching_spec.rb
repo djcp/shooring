@@ -1,0 +1,39 @@
+require 'spec_helper'
+
+feature "Searching" do
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:activity) { FactoryGirl.create(:activity) }
+  let!(:folder_1) do
+    FactoryGirl.create(:folder,
+            name: "Create activitys",
+            activity: activity,
+            user: user,
+            tag_names: "iteration_1")
+  end
+
+  let!(:folder_2) do
+    FactoryGirl.create(:folder,
+            name: "Create users",
+            activity: activity,
+            user: user,
+            tag_names: "iteration_2")
+  end
+
+  before do
+    define_permission!(user, "view", activity)
+    define_permission!(user, "tag", activity)
+
+    sign_in_as!(user)
+    visit '/'
+    click_link activity.name
+  end
+
+  scenario "Finding by tag" do
+    fill_in "Search", with: "tag:iteration_1"
+    click_button "Search"
+    within("#folders") do
+      expect(page).to have_content("Create activitys")
+      expect(page).to_not have_content("Create users")
+    end
+  end
+end

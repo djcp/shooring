@@ -1,14 +1,18 @@
 Shooring::Application.routes.draw do
   root 'activities#index'
 
+  resources :activities do
+    resources :folders do
+      collection do
+        get :search
+      end
+    end
+  end
+
   resources :users
   get "/signin", to: "sessions#new"
   post "/signin", to: "sessions#create"
   delete "/signout", to: "sessions#destroy", as: "signout"
-
-  resources :activities do
-    resources :folders
-  end
 
   resources :folders do
     resources :comments
