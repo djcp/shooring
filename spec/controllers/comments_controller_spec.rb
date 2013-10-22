@@ -24,4 +24,22 @@ describe CommentsController do
       expect(folder.state).to be_nil
     end
   end
+
+  context "a user without permission to tag a folder" do
+    before do
+      sign_in(user)
+    end
+
+    it "cannot tag a folder when creating a comment" do
+      post :create, { comment: {
+                        text: "Tag!",
+                        tag_names: "one two"
+                      },
+                      folder_id: folder.id
+                     }
+      folder.reload
+      expect(folder.tags).to be_empty
+    end
+  end
+
 end

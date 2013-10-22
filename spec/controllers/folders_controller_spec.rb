@@ -63,6 +63,17 @@ describe FoldersController do
         expect(flash[:alert]).to eql(message)
       end
 
+      it "can create folders, but not tag them" do
+         Permission.create(user: user,
+                           thing: activity,
+                           action: "create folders")
+         post :create, folder: { title: "New folder!",
+                                 description: "Brand spankin' new",
+                                 tag_names: "these are tags"
+                               },
+                    activity_id: activity.id
+         #expect(Folder.last.tags).to be_empty
+       end
     end
   end
 end

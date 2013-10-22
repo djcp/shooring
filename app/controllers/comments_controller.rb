@@ -19,8 +19,12 @@ class CommentsController < ApplicationController
 
   private
     def sanitize_parameters!
-       if !current_user.admin? && cannot?(:"change states", @folder.activity)
+      if !current_user.admin? && cannot?(:"change states", @folder.activity)
         params[:comment].delete(:state_id)
+      end
+
+      if !current_user.admin? && cannot?(:tag, @folder.activity)
+        params[:comment].delete(:tag_names)
       end
     end
 

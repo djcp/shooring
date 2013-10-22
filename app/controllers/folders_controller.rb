@@ -17,8 +17,13 @@ class FoldersController < ApplicationController
   end
 
   def create
+    if cannot?(:tag, @activity)
+      params[:folder].delete(:tag_names)
+    end
+
     @folder = @activity.folders.build(folder_params)
     @folder.user = current_user
+
     if @folder.save
       flash[:notice] = "Folder has been created."
       redirect_to [@activity, @folder]

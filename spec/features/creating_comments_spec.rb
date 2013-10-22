@@ -7,6 +7,7 @@ feature "Creating comments" do
 
   before do
     define_permission!(user, "view", activity)
+    define_permission!(user, "tag", activity)
 
     FactoryGirl.create(:state, name: "Closed")
 
@@ -59,7 +60,6 @@ feature "Creating comments" do
       find("#comment_state_id")
     }.to raise_error(Capybara::ElementNotFound, message)
   end
-
 
   scenario "Adding a tag to a folder" do
     click_link folder.name
