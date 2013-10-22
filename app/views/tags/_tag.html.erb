@@ -5,4 +5,12 @@
       remote: true,
       id: "delete-#{tag.name.parameterize}" %>
 <% end %>
-<%= tag.name %>
+
+<span class='tag'>
+<%= link_to tag.name,
+            search_activity_folders_path(
+              @folder.activity,
+              search: "tag:#{tag.name}"
+            )
+%>
+</span>
