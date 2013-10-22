@@ -5,8 +5,8 @@ feature 'Viewing Folders' do
     user = FactoryGirl.create(:user)
     student_project = FactoryGirl.create(:activity, name: "Student project")
     define_permission!(user, "view", student_project)
-    ticket = FactoryGirl.create(:folder, activity: student_project, name:"Bash project", description:"Project for bob and Alice")
-    ticket.update(user: user)
+    folder = FactoryGirl.create(:folder, activity: student_project, name:"Bash project", description:"Project for bob and Alice")
+    folder.update(user: user)
 
     meeting = FactoryGirl.create(:activity, name: "Meeting")
     FactoryGirl.create(:folder, activity: meeting, name:"Teachers Meeting", description:"Back to school teachers meeting")

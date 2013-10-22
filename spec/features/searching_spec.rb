@@ -4,19 +4,23 @@ feature "Searching" do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:activity) { FactoryGirl.create(:activity) }
   let!(:folder_1) do
+    state = State.create(name: "Open")
     FactoryGirl.create(:folder,
-            name: "Create activitys",
+            name: "Create activities",
             activity: activity,
             user: user,
-            tag_names: "iteration_1")
+            tag_names: "iteration_1",
+            state: state)
   end
 
   let!(:folder_2) do
+    state = State.create(name: "Closed")
     FactoryGirl.create(:folder,
             name: "Create users",
             activity: activity,
             user: user,
-            tag_names: "iteration_2")
+            tag_names: "iteration_2",
+             state: state)
   end
 
   before do
@@ -32,7 +36,16 @@ feature "Searching" do
     fill_in "Search", with: "tag:iteration_1"
     click_button "Search"
     within("#folders") do
-      expect(page).to have_content("Create activitys")
+      expect(page).to have_content("Create activities")
+      expect(page).to_not have_content("Create users")
+    end
+  end
+
+  scenario "Finding by state" do
+    fill_in "Search", with: "state:Open"
+    click_button "Search"
+    within("#folders") do
+      expect(page).to have_content("Create activities")
       expect(page).to_not have_content("Create users")
     end
   end

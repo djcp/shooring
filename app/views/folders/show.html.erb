@@ -32,7 +32,7 @@
  <% if @folder.comments.exists? %>
    <%= render @folder.comments.select(&:persisted?) %>
  <% else %>
-  There are no comments for this ticket.
+  There are no comments for this folder.
  <% end %>
 </div>
 <%= render "comments/form" %>

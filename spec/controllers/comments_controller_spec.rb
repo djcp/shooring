@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe CommentsController do
   let(:user) { FactoryGirl.create(:user) }
-  let(:activity) { Activity.create!(name: "Ticketee") }
+  let(:activity) { Activity.create!(name: "Student Project") }
 
   let(:folder) do
     activity.folders.create(name: "State transitions",
