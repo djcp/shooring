@@ -1,1 +1,8 @@
-<span class='tag'><%= tag.name %></span>
+<% if can?(:tag, @folder.activity) || current_user.admin? %>
+  <%= link_to "x",
+      remove_folder_tag_path(@folder, tag),
+      method: :delete,
+      remote: true,
+      id: "delete-#{tag.name.parameterize}" %>
+<% end %>
+<%= tag.name %>

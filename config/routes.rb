@@ -12,6 +12,11 @@ Shooring::Application.routes.draw do
 
   resources :folders do
     resources :comments
+    resources :tags do
+      member do
+        delete :remove
+      end
+    end
   end
 
   resources :files
