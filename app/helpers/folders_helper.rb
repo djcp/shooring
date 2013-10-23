@@ -13,4 +13,13 @@ module FoldersHelper
     end
   end
 
+   def toggle_watching_button
+    text = if @folder.watchers.include?(current_user)
+      "Stop watching this folder"
+    else
+      "Watch this folder"
+    end
+    button_to(text, watch_activity_folder_path(@folder.activity, @folder))
+  end
+
 end

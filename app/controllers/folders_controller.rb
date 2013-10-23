@@ -1,7 +1,7 @@
 class FoldersController < ApplicationController
   before_action :require_signin!
   before_action :set_activity
-  before_action :set_folder, only: [:show, :edit, :update, :destroy]
+  before_action :set_folder, only: [:show, :edit, :update, :destroy, :watch]
   before_action :authorize_create!, only: [:new, :create]
   before_action :authorize_update!, only: [:edit, :update]
   before_action :authorize_delete!, only: :destroy
@@ -55,6 +55,18 @@ class FoldersController < ApplicationController
   def search
     @folders = @activity.folders.search(params[:search])
     render "activities/show"
+  end
+
+  def watch
+    if @folder.watchers.exists?(current_user)
+      @folder.watchers -= [current_user]
+      flash[:notice] = "You are no longer watching this folder."
+    else
+      @folder.watchers << current_user
+      flash[:notice] = "You are now watching this folder."
+    end
+
+    redirect_to activity_folder_path(@folder.activity, @folder)
   end
 
   private
