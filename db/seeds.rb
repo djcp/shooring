@@ -11,6 +11,16 @@ admin_user = User.create(email: "admin@example.com",
                          password_confirmation: "password",
                          admin: true)
 
+teacher_user = User.create(email: "teacher@example.com",
+                         name: "teacher",
+                         password: "password",
+                         password_confirmation: "password")
+
+student_user = User.create(email: "student@example.com",
+                         name: "student",
+                         password: "password",
+                         password_confirmation: "password")
+
 Activity.create(name: "Sample Project")
 
 State.create(      name: "New",
