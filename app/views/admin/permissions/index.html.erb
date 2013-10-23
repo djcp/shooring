@@ -9,11 +9,14 @@
    </thead>
    <tbody>
     <% @activities.each do |activity| %>
-      <tr class='<%= cycle("odd", "even") %>' id='activity_<%= activity.id %>'>
+      <tr class='<%= cycle("odd", "even") %>'
+           id='activity_<%= activity.id %>'>
        <td><%= activity.name %></td>
        <% permissions.each do |name, text| %>
          <td>
-          <%= check_box_tag "permissions[#{activity.id}][#{name}]", @ability.can?(name.to_sym, activity) %>
+          <%= check_box_tag "permissions[#{activity.id}][#{name}]", 
+              1,
+              @ability.can?(name.to_sym, activity) %>
          </td>
        <% end %>
       </tr>
