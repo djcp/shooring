@@ -11,6 +11,10 @@ Shooring::Application.routes.draw do
         post :watch
       end
     end
+
+    member do
+      get :members
+    end
   end
 
   resources :users

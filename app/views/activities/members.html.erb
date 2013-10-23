@@ -1,0 +1,6 @@
+<h2>Members <%= @activity.name %></h2>
+<% @users.each do |user| %>
+ <li>
+  <%= user.name %>
+ </li>
+<% end %>

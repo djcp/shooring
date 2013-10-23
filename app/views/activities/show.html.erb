@@ -28,3 +28,5 @@
 <% authorized?(:"create folders", @activity) do %>
   <%= link_to "New Folder", new_activity_folder_path(@activity) %>
 <% end %>
+
+<%= link_to "Members", members_activity_path(@activity) %>

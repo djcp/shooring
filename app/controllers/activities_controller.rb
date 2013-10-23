@@ -1,7 +1,7 @@
 class ActivitiesController < ApplicationController
   before_action :authorize_admin!, except: [:index, :show]
   before_action :require_signin!, only: [:index, :show]
-  before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy, :members]
 
   def index
     @activities = Activity.for(current_user)
@@ -45,6 +45,10 @@ class ActivitiesController < ApplicationController
 
     flash[:notice] = "Activity has been deleted."
     redirect_to activities_path
+  end
+
+  def members
+    @users = User.for(@activity)
   end
 
   private
