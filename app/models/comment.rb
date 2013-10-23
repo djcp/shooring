@@ -11,6 +11,7 @@ class Comment < ActiveRecord::Base
   before_create :set_previous_state
   after_create  :set_folder_state
   after_create :associate_tags_with_folder
+  after_create :creator_watches_folder
 
   delegate :activity, :to => :folder
 
@@ -34,4 +35,9 @@ class Comment < ActiveRecord::Base
       self.folder.state = self.state
       self.folder.save!
     end
+
+    def creator_watches_folder
+      folder.watchers << user
+    end
+
 end

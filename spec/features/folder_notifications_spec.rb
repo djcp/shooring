@@ -35,5 +35,27 @@ feature "Folder Notifications" do
       expect(page).to have_content(folder.name)
     end
   end
+
+  scenario "Comment authors are automatically subscribed to a folder" do
+    click_link activity.name
+    click_link folder.name
+    fill_in "comment_text", with: "Is it out yet?"
+    click_button "Create Comment"
+    expect(page).to have_content("Comment has been created.")
+    find_email!(alice.email)
+    click_link "Sign out"
+
+    reset_mailer
+
+    sign_in_as!(alice)
+    click_link activity.name
+    click_link folder.name
+    fill_in "comment_text", with: "Not yet!"
+    click_button "Create Comment"
+    expect(page).to have_content("Comment has been created.")
+    find_email!(bob.email)
+    expect(lambda { find_email!(alice.email) }).to raise_error
+  end
+
 end
 
