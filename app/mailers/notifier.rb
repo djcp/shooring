@@ -9,6 +9,9 @@ class Notifier < ActionMailer::Base
 
     subject = "[Shooring] #{@activity.name} - #{@folder.name}"
 
-    mail(to: user.email, subject: subject)
+    mail(to: user.email, subject: subject,
+         reply_to: "Shooring App <youraccount+" +
+         "#{@activity.id}+#{@folder.id}@example.com>")
+
   end
 end
