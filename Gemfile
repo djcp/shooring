@@ -32,3 +32,8 @@ group :test do
   gem 'database_cleaner', '~> 1.0.1'
 end
 
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
+  gem 'meta_request'
+end
